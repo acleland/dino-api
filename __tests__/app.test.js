@@ -7,8 +7,10 @@ describe('backend-express-template routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-  it('example test - delete me!', () => {
-    expect(1).toEqual(1);
+  it('/dinos should return list of dinosaurs', async () => {
+    const expected = [{ id: '1', name: 'Iguanodon' }];
+    const res = await request(app).get('/dinos');
+    expect(res.body).toEqual(expected);
   });
   afterAll(() => {
     pool.end();
