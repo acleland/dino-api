@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const req = require('express/lib/request');
 
 describe('backend-express-template routes', () => {
   beforeEach(() => {
@@ -83,6 +84,18 @@ describe('backend-express-template routes', () => {
     const res = await request(app).get('/dinos');
     expect(res.body).toEqual(expected);
   });
+
+  it('/dinos/:id should return dino detail', async () => {
+    const iguanodon = {
+      id: '1',
+      name: 'Iguanodon',
+      period: 'Cretaceous',
+    };
+
+    const res = await request(app).get('/dinos/1');
+    expect(res.body).toEqual(iguanodon);
+  });
+
   afterAll(() => {
     pool.end();
   });
