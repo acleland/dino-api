@@ -7,9 +7,94 @@ describe('backend-express-template routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-  it('example test - delete me!', () => {
-    expect(1).toEqual(1);
+  it('/dinos should return list of dinosaurs', async () => {
+    const expected = [
+      {
+        id: '1',
+        name: 'Iguanodon',
+        period: 'Cretaceous',
+      },
+      {
+        id: '2',
+        name: 'Tyrannosaurus',
+        period: 'Cretaceous',
+      },
+      {
+        id: '3',
+        name: 'Apatosaurus',
+        period: 'Jurassic',
+      },
+      {
+        id: '4',
+        name: 'Dilophosaurus',
+        period: 'Jurassic',
+      },
+      {
+        id: '5',
+        name: 'Ankylosuaurus',
+        period: 'Cretaceous',
+      },
+      {
+        id: '6',
+        name: 'Stegosaurus',
+        period: 'Jurassic',
+      },
+      {
+        id: '7',
+        name: 'Triceratops',
+        period: 'Cretaceous',
+      },
+      {
+        id: '8',
+        name: 'Pteronodon',
+        period: 'Cretaceous',
+      },
+      {
+        id: '9',
+        name: 'Dimetrodon',
+        period: 'Triassic',
+      },
+      {
+        id: '10',
+        name: 'Diplodocus',
+        period: 'Jurassic',
+      },
+      {
+        id: '11',
+        name: 'Parasaurolophus',
+        period: 'Cretaceous',
+      },
+      {
+        id: '12',
+        name: 'Spinosaurus',
+        period: 'Crecaceous',
+      },
+      {
+        id: '13',
+        name: 'Velociraptor',
+        period: 'Cretaceous',
+      },
+      {
+        id: '14',
+        name: 'Spike the Puppy Dragon',
+        period: 'Quaternary',
+      },
+    ];
+    const res = await request(app).get('/dinos');
+    expect(res.body).toEqual(expected);
   });
+
+  it('/dinos/:id should return dino detail', async () => {
+    const iguanodon = {
+      id: '1',
+      name: 'Iguanodon',
+      period: 'Cretaceous',
+    };
+
+    const res = await request(app).get('/dinos/1');
+    expect(res.body).toEqual(iguanodon);
+  });
+
   afterAll(() => {
     pool.end();
   });
